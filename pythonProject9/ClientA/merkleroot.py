@@ -1,46 +1,5 @@
-from _curses import nl
-from socket import *
 import hashlib
 
-
-serverPort = 12000
-serverSocket = socket(AF_INET, SOCK_DGRAM)
-serverSocket.bind(('', serverPort))
-turn=1
-count=0
-
-print ('The server is ready to receive')
-
-def WriteTemp(Trasaction,count):
-
-    Tempfile = open("/Users/nihalnihalani/PycharmProjects/pythonProject9/F1/TempF1.txt", "+a")
-    Tempfile.writelines(Trasaction)
-    Tempfile.write("\n")
-    Tempfile.close()
-    count+=1
-    print(count)
-
-    return count
-
-def checkCounter(count,turn):
-    list2=[]
-    if turn%2!=0:
-        if count%4==0:
-
-            print("Mine the Block")
-            list2=Mining()
-
-            return list2
-    else:
-        return
-
-def Mining():
-    hashing=[]
-    Tempfile = open("/Users/nihalnihalani/PycharmProjects/pythonProject9/F1/TempF1.txt", "r")
-    for x in Tempfile:
-        hashing.append(x.strip())
-    print(hashing)
-    return hashing
 
 def hash_input(input):
     m = hashlib.sha256()
@@ -79,21 +38,6 @@ def get_merkle_root(transactions):
     return mr.findMerkleRoot(leafHash)
 
 
+transactions = ['a', 'b', 'c','d']
 
-
-
-
-
-
-
-
-
-while 1:
-    Trasaction,clientAddress = serverSocket.recvfrom(2048)
-    Trasaction = Trasaction.decode()
-    print(Trasaction)
-    count=WriteTemp(Trasaction,count)
-    list1=checkCounter(count,turn)
-    print(get_merkle_root(list1))
-
-
+print(get_merkle_root(transactions))
