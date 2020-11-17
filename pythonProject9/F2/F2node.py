@@ -1,46 +1,45 @@
 from _curses import nl
 from socket import *
 import hashlib
-
-
-serverPort = 12000
+import hashlib
+serverPortA=2000
+ServerPortB=3000
 serverSocket = socket(AF_INET, SOCK_DGRAM)
-serverSocket.bind(('', serverPort))
-turn=1
+serverSocket.bind(('', serverPortA))
+turn=0
 count=0
+lastBlockHash = str().zfill(64)
+
+
 
 print ('The server is ready to receive')
 
 def WriteTemp(Trasaction,count):
-
-    Tempfile = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F1/TempF1.txt", "+a")
+    Tempfile = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F2/TempF2.txt", "+a")
     Tempfile.writelines(Trasaction)
     Tempfile.write("\n")
     Tempfile.close()
     count+=1
     print(count)
-
     return count
 
 def checkCounter(count,turn):
     list2=[]
-    if turn%2!=0:
-        if count%4==0:
-
-            print("Mine the Block")
-            list2=Mining()
-
-            return list2
+    if count%4==0:
+        list2=Mining()
+        return list2
     else:
         return
 
 def Mining():
     hashing=[]
-    Tempfile = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F1/TempF1.txt", "r")
+    Tempfile = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F2/TempF2.txt", "r")
     for x in Tempfile:
         hashing.append(x.strip())
+    print("hashing")
     print(hashing)
     return hashing
+
 
 def hash_input(input):
     m = hashlib.sha256()
@@ -79,13 +78,56 @@ def get_merkle_root(transactions):
     return mr.findMerkleRoot(leafHash)
 
 
+def BlockChain(merkulroot,alltrans):
+    hashHandler = hashlib.sha256()
+    nonce = 0
+    while True:
+        block_header = "{:08x}".format(nonce) + lastBlockHash +merkulroot
+        hashHandler.update(block_header.encode("utf-8"))
+        hashValue = hashHandler.hexdigest()
+        nounceFound = True
+        for i in range(4):
+            if hashValue[i] != '0':
+                nounceFound = False
+        if nounceFound:
+            print('nonce:{0}, hash:{1}'.format(nonce, hashValue))
+            block = "{:08x}".format(nonce) +lastBlockHash+merklerut+alltrans
+            writeBlock(block)
+            break
+        else:
+            nonce = nonce + 1
+
+
+def concatenate_list_data(list):
+    result= ''
+    for element in list:
+        result += str(element)
+    return result
+
+def writeBlock(block):
+    if turn%2==0:
+        Blockfile = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F2/BlockchainF2.txt", "w")
+        Blockfile.writelines(block)
+        Blockfile.write("\n")
+        lastBlockHash = (hash_input(block))
+        print(lastBlockHash)
+
+    return
+
 while 1:
     Trasaction,clientAddress = serverSocket.recvfrom(2048)
     Trasaction = Trasaction.decode()
     print(Trasaction)
     count=WriteTemp(Trasaction,count)
-    if count %4==0:
+    turn += 1
+    if count%4==0 and turn%2==0:
         list1=checkCounter(count,turn)
-        print(get_merkle_root(list1))
+        serverSocket.sendto("1".encode(), clientAddress)
+        merklerut=get_merkle_root(list1)
+        merklerut = ''.join(map(str, merklerut))
+        alltrans = concatenate_list_data(list1)
+        BlockChain(merklerut,alltrans)
+
+
 
 

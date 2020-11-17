@@ -1,9 +1,9 @@
 from socket import *
 import socket
-
 serverName = 'localhost'
-serverPort = 12000
+serverPortF1 = 12000
 clientSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverPortF2=2000
 
 serverName = 'localhost'
 uncomfirmtx = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/ClientA/Unconfirmed_A.txt", "w")
@@ -23,11 +23,13 @@ def NewTransaction():
             Payee_account = "B0000002"
         print(Payee_account)
         Amount = int(input("Enter the amount in decimal:"))
+        
         AmountH = str.format('{:08X}', int(hex(Amount), 16))
         print(AmountH)
         Trasaction=Payer_account+Payee_account+AmountH
         print(Trasaction)
-        clientSocket.sendto(Trasaction.encode(), (serverName, serverPort))
+        clientSocket.sendto(Trasaction.encode(), (serverName, serverPortF1))
+        clientSocket.sendto(Trasaction.encode(), (serverName, serverPortF2))
         uncomfirmtx = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/ClientA/Unconfirmed_A.txt", "a+")
         uncomfirmtx.writelines(Trasaction)
         uncomfirmtx.write("\n")
@@ -55,8 +57,6 @@ def LastXconfirmedTransactions(X):
 def Blockchain():
     f1 = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F1/BlockchainF1.txt", "r")
     print(f1.readline())
-    f2 = open("/Users/nihalnihalani/Desktop/Github/BitCoin_Networks/pythonProject9/F2/BlockchainF2.txt", "r")
-    print(f2.readline())
     return
 
 def BlockCreated(done):
