@@ -7,7 +7,7 @@ serverSocket = socket(AF_INET, SOCK_DGRAM)
 serverSocket.bind(('', serverPortA))
 count=0
 lastBlockHash = str().zfill(64)
-
+turn=0
 
 
 print ('The server is ready to receive')
