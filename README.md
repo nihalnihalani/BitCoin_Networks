@@ -18,7 +18,7 @@ This is a project that implements a blockchain transactional system. It allows t
 ## Installation
 Clone the repository 
 ```
-git clone https://github.com/username/repository.git
+git clone https://github.com/nihalnihalani/BitCoin_Networks
 ```
 
 Install the requirements 
