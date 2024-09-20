@@ -1,56 +1,65 @@
-# BitCoin_Networks
-# Blockchain Transactional System
-This is a project that implements a blockchain transactional system. It allows two full nodes (F1 and F2) and two clients (A and B) to connect to each other and transfer funds. It also keeps track of the funds stored in each account and makes sure that all transactions are valid. 
+# BitCoin Networks
+## Blockchain Transactional System
 
-## Features
-* Initial balance of each client account is 1000 BC (bitcoin) and the initial balance of each full node account is 0 BC (bitcoin). 
-* Each client can record a transaction with either of its accounts and sends it to its full node. 
-* The full nodes can mine a block with the transactions when there are 4 transactions in the list of temporary transactions. 
-* F1 mines the odd blocks and F2 mines the even blocks. 
-* Once mined, the miner full node stores the block in its blockchain and sends the mined block to the other full node. 
-* The corresponding transactions are sent to the clients. 
-* When a client receives the confirmed transactions, it appends it to the its list of confirmed transactions and update its balance. 
+Welcome to **BitCoin Networks**, a project that implements a blockchain-based transactional system, enabling two full nodes (F1 and F2) and two clients (A and B) to transfer funds seamlessly while ensuring all transactions remain valid and secure.
 
-## Requirements
-* Python 3.7 
+### 🛠️ Features
+- **Initial Balances:** 
+  - Each client (A and B) starts with 1000 BC (BitCoin).
+  - Each full node (F1 and F2) starts with 0 BC.
+- **Transaction Process:** 
+  - Clients can record transactions and send them to their respective full node.
+- **Block Mining:** 
+  - Full nodes mine blocks once they accumulate 4 transactions.
+  - F1 mines odd-numbered blocks; F2 mines even-numbered blocks.
+- **Blockchain Update:** 
+  - After mining, the mined block is stored and shared between the full nodes.
+  - Transactions are confirmed and sent to clients.
+- **Balance Update:**
+  - Clients append confirmed transactions and update their balances accordingly.
 
+### 📋 Requirements
+- Python 3.7+
 
-## Installation
-Clone the repository 
-```
-git clone https://github.com/nihalnihalani/BitCoin_Networks
-```
+### 🚀 Installation
 
-Install the requirements 
-```
-pip install -r requirements.txt
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/nihalnihalani/BitCoin_Networks
 
-## Usage
-Start the full node F1
-```
-python full_node_f1.py
-```
+2. **Install the requirements:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Start the full node F2
-```
-python full_node_f2.py
-```
+## ⚙Usage
 
-Start the client A 
-```
-python client_a.py
-```
+- **Start Full Node F1:**
+   ```bash
+   python full_node_f1.py
+   ```
 
-Start the client B 
-```
-python client_b.py
-```
+- **Start Full Node F2:**
+   ```bash
+   python full_node_f2.py
+   ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+- **Start Client A:**
+   ```bash
+   python client_a.py
+   ```
 
-Please make sure to update tests as appropriate.
+- **Start Client B:**
+   ```bash
+   python client_b.py
+   ```
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss the changes you'd like to make.
+
+Make sure to update tests where necessary.
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/).
